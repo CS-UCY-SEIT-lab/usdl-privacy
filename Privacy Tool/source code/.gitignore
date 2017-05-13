@@ -1,8 +1,0 @@
-# gitIgnore files and folders
-
-# ignore the 'node_modules' directory
-node_modules/
-
-# ignore the 'build' directory
-build/
-

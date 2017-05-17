@@ -92,8 +92,10 @@ var SparqlStore = function () {
 		for (var actionId = 0; actionId < window.actionsData.length; actionId++) {
 			var action = prefixNaming + window.actionsData[actionId];
 			var securityEnchancement = prefixNaming + "securityEnchancement";
+			var useIntention = prefixNaming + "useIntention";
+			var retentionPeriod = prefixNaming + "retentionPeriod";
 
-			var formattedQuery = additionalPrefix + "SELECT ?entity ?data ?securityEnchancement WHERE { ?entity " + action.toString() + " ?data . OPTIONAL { ?annotation owl:annotatedSource ?entity ; owl:annotatedProperty " + action.toString() + " ; owl:annotatedTarget ?data ; " + securityEnchancement.toString() + " ?securityEnchancement . } }";
+			var formattedQuery = additionalPrefix + "SELECT ?entity ?data ?retentionPeriod ?useIntention ?securityEnchancement WHERE { ?entity " + action.toString() + " ?data . OPTIONAL { ?annotation owl:annotatedSource ?entity ; owl:annotatedProperty " + action.toString() + " ; owl:annotatedTarget ?data ; " + retentionPeriod.toString() + " ?retentionPeriod . } OPTIONAL { ?annotation owl:annotatedSource ?entity ; owl:annotatedProperty " + action.toString() + " ; owl:annotatedTarget ?data ; " + useIntention.toString() + " ?useIntention . } OPTIONAL { ?annotation owl:annotatedSource ?entity ; owl:annotatedProperty " + action.toString() + " ; owl:annotatedTarget ?data ; " + securityEnchancement.toString() + " ?securityEnchancement . } }";
 
 			window.ontologies[posId].query[actionId] = formattedQuery;
 		}

@@ -241,6 +241,10 @@ input:checked + .slider + .text:before {
     color: midnightblue;
 }
 
+.textual-results-annotations {
+    padding-left: 9em;
+}
+
 .textual-results-ontology-name {
     color: mediumblue ! important;
     text-align: justify;
@@ -260,6 +264,7 @@ input:checked + .slider + .text:before {
     text-align: justify;
     word-wrap: break-word;
     padding-left:5em ! important;
+    color: cornflowerblue;
 }
 
 .textual-results-action-list {

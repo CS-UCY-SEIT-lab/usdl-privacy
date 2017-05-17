@@ -158,7 +158,7 @@ var PrepResults = function () {
 				if (window.ontologies[ontologyId].dataValue[dataIndex] === window.ontologies[ontologyId].individuals[index].name) {
 					window.ontologies[ontologyId].individuals.splice(index, 1);
 
-					if(index !== 0) {
+					if (index !== 0) {
 						index--;
 					}
 				}
@@ -233,6 +233,8 @@ var PrepResults = function () {
 							var dataObject = {};
 							dataObject.value = entry.data.value;
 							dataObject.security = entry.securityEnchancement !== null ? entry.securityEnchancement.value : "";
+							dataObject.retention = entry.retentionPeriod !== null ? entry.retentionPeriod.value : "";
+							dataObject.intention = entry.useIntention !== null ? entry.useIntention.value : "";
 							window.ontologies[i].individuals[l].actions[j].data.push(dataObject);
 
 							// setup the data value entries
@@ -316,10 +318,33 @@ var PrepResults = function () {
 						output.push("<p class='textual-results-action-type'>", actions.type, "</p>");
 
 						for (var k = 0; k < actions.data.length; k++) {
-							actions.data[k].security !== "" ?
-								output.push("<p class='textual-results-action-list'>", actions.data[k].value, " <i class='textual-results-type'>(", app.retrieveType(key, actions.data[k].value), ")</i> [security: ", actions.data[k].security, "]</p>")
-								:
-								output.push("<p class='textual-results-action-list'>", actions.data[k].value, " <i class='textual-results-type'>(", app.retrieveType(key, actions.data[k].value), ")</i></p>");
+							output.push("<p class='textual-results-action-list'>", actions.data[k].value, " <i class='textual-results-type'>(", app.retrieveType(key, actions.data[k].value), ")</i>");
+
+							if (actions.data[k].security !== "" || actions.data[k].retention !== "" || actions.data[k].intention !== "") {
+								output.push("<br> <p class='textual-results-annotations'>[");
+							}
+
+							if (actions.data[k].security !== "") {
+								output.push("<b>Security:</b> '", actions.data[k].security, "'");
+							}
+							if (actions.data[k].retention !== "") {
+								if (actions.data[k].security !== "") {
+									output.push(", ");
+								}
+								output.push("<b>Retention Period:</b> '", actions.data[k].retention, "'");
+							}
+							if (actions.data[k].intention !== "") {
+								if (actions.data[k].security !== "" || actions.data[k].retention !== "") {
+									output.push(", ");
+								}
+								output.push("<b>Use Intention:</b> '", actions.data[k].intention, "'");
+							}
+
+							if (actions.data[k].security !== "" || actions.data[k].retention !== "" || actions.data[k].intention !== "") {
+								output.push("]</p>");
+							}
+
+							output.push("</p>");
 						}
 					}
 				}
